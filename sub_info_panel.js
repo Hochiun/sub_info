@@ -33,9 +33,9 @@ Sub_info = script-name=Sub_info,update-interval=86400
   let used = info.download + info.upload;
   let total = info.total;
   let expire = args.expire || info.expire;
-  let content = [`用量：${bytesToSize(used)} | ${bytesToSize(total)} | 重置：剩余${resetDayLeft}天 | 到期：${formatTime(expire)}`];
+  let content = [`用量：${bytesToSize(used)} | ${bytesToSize(total)}`];
 
-/*
+
   if (resetDayLeft) {
     content.push(`重置：剩余${resetDayLeft}天`);
   }
@@ -44,7 +44,7 @@ Sub_info = script-name=Sub_info,update-interval=86400
     if (/^[\d.]+$/.test(expire)) expire *= 1000;
     content.push(`到期：${formatTime(expire)}`);
   }
-*/
+
   let now = new Date();
   let hour = now.getHours();
   let minutes = now.getMinutes();
@@ -52,7 +52,7 @@ Sub_info = script-name=Sub_info,update-interval=86400
   minutes = minutes > 9 ? minutes : "0" + minutes;
 
   $done({
-    title: `${args.title}`,
+    title: `${args.title} | ${hour}:${minutes}`,
     content: content.join("\n"),
     icon: args.icon || "airplane.circle",
     "icon-color": args.color || "#007aff",
